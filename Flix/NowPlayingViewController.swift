@@ -11,7 +11,7 @@ import UIKit
 class NowPlayingViewController: UIViewController, UITableViewDataSource  {
 
     @IBOutlet weak var tableView: UITableView!
-    
+    var movies: [[String: Any]] = []                                //this movies is an array of dictionaries (like the movies below)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,30 +23,45 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
         let session = URLSession(configuration:  .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) { (data, response, error) in
             //This will run when the network request returns
+            //Here is where we 'parse' and get our data back
             if let error = error {
                 print(error.localizedDescription)
             } else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 //print(dataDictionary)
                 
-                let movies = dataDictionary["results"] as! [[String: Any]]
+                let movies = dataDictionary["results"] as! [[String: Any]]              //movies: an array of dictionaries
+                self.movies = movies                                                    //makes the movies with the wide scope
+                                                                                        //(from above, movies.self) have the same
+                                                                                        //data as the movies from this smaller score
+                //this for loop is for a test print
+                /*
                 for movie in movies {
                     let title = movie["title"] as! String
                     print(title)
                 }
+                */
+                
+                self.tableView.reloadData()
+                //for updating the UI with the information once it returns from the server
             }
         }
         task.resume()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 10
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath)
-        //"MovieCell" is the identifies we gave the cell in the attributes inspector, its like a tag
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
+        //"MovieCell" : the identifies we gave the cell in the attributes inspector, its like a tag
+        //as! MovieCell : type casts it to the class MovieCell instead of just a regular UITableViewCell
+        let movie = movies[indexPath.row]                                               //this holds a single dictionary
+        let title = movie["title"] as! String
+        let overview = movie["overview"] as! String
+        cell.titleLabel.text = title
+        cell.overviewLabel.text = overview
         return cell
     }
     
