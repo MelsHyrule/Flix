@@ -1,8 +1,8 @@
-# Project 2 - *Name of App Here*
+# Project 2 - Flix
 
-**Name of your app** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+Flix is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: (start time: 2:49pm) hours spent in total
 
 ## User Stories
 
@@ -54,7 +54,7 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright [2017] [Melody Ann Seda Marotte]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
