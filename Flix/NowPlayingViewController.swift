@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource  {
 
@@ -41,7 +42,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
                     print(title)
                 }
                 */
-                
                 self.tableView.reloadData()
                 //for updating the UI with the information once it returns from the server
             }
@@ -62,6 +62,16 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
         let overview = movie["overview"] as! String
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
+        
+        //to get an image u need a base_url, a file_size and a file_path
+        //  https://image.tmdb.org/t/p        /w500           /kqjL17yufvn9OVLyXYpvtyrFfak.jpg
+        let posterPathString = movie["poster_path"] as! String          //poster path (for the image)
+        let baseURLString = "https://image.tmdb.org/t/p/w500"           //has base URL and file size (w500)
+        
+        let posterURL = URL(string: baseURLString + posterPathString)!
+        cell.posterimageView.af_setImage(withURL: posterURL)
+        
+        
         return cell
     }
     
