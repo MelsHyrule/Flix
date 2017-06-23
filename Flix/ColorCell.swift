@@ -12,6 +12,7 @@ class ColorCell: UICollectionViewCell {
     
     @IBOutlet weak var posterImageView: UIImageView!
      
+    @IBOutlet weak var SuperposterImageView: UIImageView!
     
     
 }

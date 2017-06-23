@@ -10,6 +10,7 @@
 		271B255FD379682569302633 /* Pods_Flix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88ECDDAE08E3E2895DA9C5E /* Pods_Flix.framework */; };
 		71D107EE7EDDF9A4EB4A31C8 /* Pods_FlixUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2043588785C220B9EC9304 /* Pods_FlixUITests.framework */; };
 		86114B941EFDD4A10011D70B /* DetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86114B931EFDD4A10011D70B /* DetailCollectionViewController.swift */; };
+		86114B9C1EFDDBA90011D70B /* SuperheroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86114B9B1EFDDBA90011D70B /* SuperheroViewController.swift */; };
 		869C71931EFD7E5400F233A9 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869C71921EFD7E5400F233A9 /* CollectionViewController.swift */; };
 		86D80EA71EFB710C003B9FB1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D80EA61EFB710C003B9FB1 /* DetailViewController.swift */; };
 		86EB215D1EFB1E250083F496 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86EB215C1EFB1E250083F496 /* AppDelegate.swift */; };
@@ -45,6 +46,7 @@
 		0B0319E47FFD4BE2994ACB4E /* Pods-FlixUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlixUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlixUITests/Pods-FlixUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3588148FFCC036C68F23FE96 /* Pods-Flix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flix.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flix/Pods-Flix.debug.xcconfig"; sourceTree = "<group>"; };
 		86114B931EFDD4A10011D70B /* DetailCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewController.swift; sourceTree = "<group>"; };
+		86114B9B1EFDDBA90011D70B /* SuperheroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperheroViewController.swift; sourceTree = "<group>"; };
 		869C71921EFD7E5400F233A9 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		86D80EA61EFB710C003B9FB1 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		86EB21591EFB1E250083F496 /* Flix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flix.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,13 +124,30 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		86D80EA41EFB7062003B9FB1 /* ViewControllers */ = {
+		86114B951EFDD9C80011D70B /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				869C71921EFD7E5400F233A9 /* CollectionViewController.swift */,
+				86114B931EFDD4A10011D70B /* DetailCollectionViewController.swift */,
+			);
+			name = CollectionView;
+			sourceTree = "<group>";
+		};
+		86114B961EFDD9EF0011D70B /* TableView */ = {
 			isa = PBXGroup;
 			children = (
 				86EB218A1EFB272B0083F496 /* NowPlayingViewController.swift */,
 				86D80EA61EFB710C003B9FB1 /* DetailViewController.swift */,
-				869C71921EFD7E5400F233A9 /* CollectionViewController.swift */,
-				86114B931EFDD4A10011D70B /* DetailCollectionViewController.swift */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+		86D80EA41EFB7062003B9FB1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				86114B961EFDD9EF0011D70B /* TableView */,
+				86114B951EFDD9C80011D70B /* CollectionView */,
+				86114B9B1EFDDBA90011D70B /* SuperheroViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -481,6 +500,7 @@
 				86114B941EFDD4A10011D70B /* DetailCollectionViewController.swift in Sources */,
 				86EB215D1EFB1E250083F496 /* AppDelegate.swift in Sources */,
 				86EB21911EFB351B0083F496 /* MovieCell.swift in Sources */,
+				86114B9C1EFDDBA90011D70B /* SuperheroViewController.swift in Sources */,
 				869C71931EFD7E5400F233A9 /* CollectionViewController.swift in Sources */,
 				86D80EA71EFB710C003B9FB1 /* DetailViewController.swift in Sources */,
 				86F312EA1EFCC9A20071BF09 /* ColorCell.swift in Sources */,
