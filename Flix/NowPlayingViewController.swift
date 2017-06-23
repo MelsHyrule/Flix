@@ -11,19 +11,31 @@ import AlamofireImage
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource  {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+    
+    
     var movies: [[String: Any]] = []                                //this movies is an array of dictionaries (like the movies below)
     var refreshControl: UIRefreshControl!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Start the activity indicator
+        activityIndicator.startAnimating()
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         
         tableView.dataSource = self
+        
         fetchMovies()
+        
+        // Stop the activity indicator
+        // Hides automatically if "Hides When Stopped" is enabled
+        activityIndicator.stopAnimating()
     }
     
     func didPullToRefresh (_ refreshControl: UIRefreshControl) {
@@ -62,7 +74,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
         }
         task.resume()
     }
-    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
@@ -86,7 +97,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
         let posterURL = URL(string: baseURLString + posterPathString)!
         cell.posterimageView.af_setImage(withURL: posterURL)
         
-        
         return cell
     }
     
@@ -97,20 +107,12 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
             let movie = movies[indexPath.row]
             let detailViewController = segue.destination as! DetailViewController
             detailViewController.movie = movie
-             8
         }
-
-        
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
-    
-
-    
-    
     
 }
