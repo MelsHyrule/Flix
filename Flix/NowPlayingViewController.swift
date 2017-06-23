@@ -14,8 +14,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     
-    
-    var movies: [[String: Any]] = []                                //this movies is an array of dictionaries (like the movies below)
+    var movies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
     
     
@@ -27,8 +26,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
-        tableView.insertSubview(refreshControl, at: 0)
         
+        tableView.insertSubview(refreshControl, at: 0)
         tableView.dataSource = self
         
         fetchMovies()
@@ -101,12 +100,12 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         let cell = sender as! UITableViewCell
         if let indexPath = tableView.indexPath(for: cell){
             let movie = movies[indexPath.row]
             let detailViewController = segue.destination as! DetailViewController
             detailViewController.movie = movie
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
@@ -114,5 +113,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
         super.didReceiveMemoryWarning()
         
     }
+    
     
 }

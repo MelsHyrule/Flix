@@ -13,7 +13,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var movies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
     
@@ -27,9 +27,22 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource {
         
         collectionView.insertSubview(refreshControl, at: 0)
         collectionView.dataSource = self //as! UICollectionViewDataSource
+        
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+//        layout.minimumInteritemSpacing = 5
+//        layout.minimumLineSpacing = 5
+        let cellsPerLine: CGFloat  = 2
+        let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
+        let width = (collectionView.frame.size.width - interItemSpacingTotal) / cellsPerLine
+        layout.itemSize = CGSize(width: width, height: width * 3 / 2) 
+        
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        
+        
         fetchMovies()
         
-        //activityIndicator.stopAnimating()
+        activityIndicator.stopAnimating()
     }
 
     func didPullToRefresh (_ refreshControl: UIRefreshControl) {
@@ -46,16 +59,12 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        /*
         let cell = sender as! ColorCell
         if let indexPath = collectionView.indexPath(for: cell){
             let movie = movies[indexPath.row]
-            //let detailCollectionViewController = segue.destination as! DetailCollectionViewController
-            //detailCollectionViewController.movie = movie
+            let detailCollectionViewController = segue.destination as! DetailCollectionViewController
+            detailCollectionViewController.movie = movie
         }
- */
-        
     }
     
     
