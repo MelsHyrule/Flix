@@ -47,6 +47,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 - Sometimes the topic guides wouldn't be as clear as i would like, but this did make room for critical thinking and pod discussion
+- Tableview, collectionview and superherocollection view have different levels of modification (ie some allow to go into detailed view, others don't) this is because there was not enough time to implement certain functions in all tabs/view controllers
 
 ## Credits
 
