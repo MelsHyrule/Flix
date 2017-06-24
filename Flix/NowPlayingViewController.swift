@@ -108,6 +108,12 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         let posterURL = URL(string: baseURLString + posterPathString)!
         cell.posterimageView.af_setImage(withURL: posterURL)
         
+        let backgroundView = UIView()
+        let brightRed = UIColor(displayP3Red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        backgroundView.backgroundColor = brightRed
+        cell.selectedBackgroundView = backgroundView
+        
+        
         return cell
     }
     
