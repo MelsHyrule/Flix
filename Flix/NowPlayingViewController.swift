@@ -9,14 +9,15 @@
 import UIKit
 import AlamofireImage
 
-class NowPlayingViewController: UIViewController, UITableViewDataSource  {
+class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate  {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
-    var movies: [[String: Any]] = []
+    var movies: [[String: Any]] = []            //all data collected
+    var filteredDatas: [[String: Any]] = []      //all data kept by search bar
     var refreshControl: UIRefreshControl!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
         
         tableView.insertSubview(refreshControl, at: 0)
         tableView.dataSource = self
+        searchBar.delegate = self
+        filteredDatas = movies
         
         fetchMovies()
         
@@ -56,6 +59,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
                 
                 let movies = dataDictionary["results"] as! [[String: Any]]              //movies: an array of dictionaries
                 self.movies = movies                                                    //makes the movies with the wide scope
+                self.filteredDatas = movies
+                
                 //(from above, movies.self) have the same
                 //data as the movies from this smaller score
                 //this for loop is for a test print
@@ -75,14 +80,21 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        //return movies.count
+        return filteredDatas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         //"MovieCell" : the identifies we gave the cell in the attributes inspector, its like a tag
         //as! MovieCell : type casts it to the class MovieCell instead of just a regular UITableViewCell
-        let movie = movies[indexPath.row]                                               //this holds a single dictionary
+        
+        
+        
+        //let movie = movies[indexPath.row]                                             //this holds a single dictionary
+        let movie = filteredDatas[indexPath.row]                                        //this is using the data that has been filtered by the search bar
+        
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         cell.titleLabel.text = title
@@ -102,7 +114,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UITableViewCell
         if let indexPath = tableView.indexPath(for: cell){
-            let movie = movies[indexPath.row]
+            //let movie = movies[indexPath.row]
+            let movie = filteredDatas[indexPath.row]
             let detailViewController = segue.destination as! DetailViewController
             detailViewController.movie = movie
             tableView.deselectRow(at: indexPath, animated: true)
@@ -111,8 +124,29 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource  {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
     
+    // This method updates filteredDatas based on the text in the Search Box
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        // When user has entered text into the search box
+        // Use the filter method to iterate over all items in the data array
+        // For each item, return true if the item should be included and false if the
+        // item should NOT be included
+        filteredDatas = searchText.isEmpty ? movies : movies.filter {
+            (item: [String:Any]) -> Bool in
+            return (item["title"] as! String).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        tableView.reloadData()
+    }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
 }
