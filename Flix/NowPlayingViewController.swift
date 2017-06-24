@@ -93,7 +93,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         
         
         //let movie = movies[indexPath.row]                                             //this holds a single dictionary
-        let movie = filteredDatas[indexPath.row]                                        //this is using the data that has been filtered by the search bar
+        let movie = filteredDatas[indexPath.row]
+        //this is using the data that has been filtered by the search bar
         
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
