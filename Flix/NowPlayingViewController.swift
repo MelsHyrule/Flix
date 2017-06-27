@@ -90,7 +90,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         //"MovieCell" : the identifies we gave the cell in the attributes inspector, its like a tag
         //as! MovieCell : type casts it to the class MovieCell instead of just a regular UITableViewCell
         
-        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 50
         
         //let movie = movies[indexPath.row]                                             //this holds a single dictionary
         let movie = filteredDatas[indexPath.row]
